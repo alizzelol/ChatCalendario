@@ -28,13 +28,13 @@
             android:name=".EventosDiaActivity"
             android:exported="false" />
         <activity
-            android:name=".ConversationActivity"
+            android:name=".chat.ConversationActivity"
             android:exported="false" />
         <activity
-            android:name=".ContactListActivity"
+            android:name=".chat.ContactListActivity"
             android:exported="false" />
         <activity
-            android:name=".ChatActivity"
+            android:name=".chat.ChatActivity"
             android:exported="false" />
         <activity
             android:name=".CalendarioPadres"
