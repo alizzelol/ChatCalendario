@@ -11,15 +11,14 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.alizzelol.chatcalendario.chat.ChatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,7 +37,8 @@ public class CalendarioProfesor extends AppCompatActivity {
     private String filtro = "todos"; // Filtro inicial
     private TextView textMesAño; // Adicionado
     private static final int REQUEST_ADD_EVENT = 1;
-    private String username; // Adicionado
+    private String username;
+    private ActivityResultLauncher<Intent> addEventLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,14 @@ public class CalendarioProfesor extends AppCompatActivity {
         loadEvents();
         updateCalendar();
         actualizarTextoMesAño();
+
+        addEventLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        loadEvents();
+                        updateCalendar();
+                    }
+                });
 
         calendarGrid.setOnItemClickListener((parent, view, position, id) -> {
             Date selectedDate = days.get(position);
@@ -190,9 +198,9 @@ public class CalendarioProfesor extends AppCompatActivity {
             Intent intent = new Intent(this, ListaUsuariosActivity.class);
             startActivity(intent);
             return true;
-        } else if (id == R.id.action_anadir_evento) {
+        }  else if (id == R.id.action_anadir_evento) {
             Intent intent = new Intent(this, AnadirEventoActivity.class);
-            startActivityForResult(intent, REQUEST_ADD_EVENT);
+            addEventLauncher.launch(intent);
             return true;
         } else if (id == R.id.action_lista_eventos) {
             Intent intent = new Intent(this, ListaEventosActivity.class);
