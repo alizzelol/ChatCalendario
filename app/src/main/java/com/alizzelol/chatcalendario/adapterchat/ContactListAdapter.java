@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario;
+package com.alizzelol.chatcalendario.adapterchat;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.alizzelol.chatcalendario.ContactListActivity;
+import com.alizzelol.chatcalendario.R;
+import com.alizzelol.chatcalendario.modelchat.User;
+
 import java.util.List;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ContactViewHolder> {
