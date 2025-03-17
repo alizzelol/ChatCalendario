@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario.modelchat;
+package com.alizzelol.chatcalendario;
 
 public class User {
     private String username;

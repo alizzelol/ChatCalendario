@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario.modelchat;
+package com.alizzelol.chatcalendario;
 
 import java.util.Date;
 

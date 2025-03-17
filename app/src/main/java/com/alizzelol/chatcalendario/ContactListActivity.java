@@ -11,9 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alizzelol.chatcalendario.adapterchat.ContactListAdapter;
-import com.alizzelol.chatcalendario.modelchat.Conversation;
-import com.alizzelol.chatcalendario.modelchat.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
