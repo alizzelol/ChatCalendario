@@ -13,28 +13,40 @@
         android:theme="@style/Theme.ChatCalendario"
         tools:targetApi="31">
         <activity
-            android:name=".EditarUsuarioActivity"
+            android:name=".ListaEventosPorTipos"
             android:exported="false" />
         <activity
-            android:name=".ListaPadresInscritos"
+            android:name=".MisEventosActivity"
             android:exported="false" />
         <activity
-            android:name=".DetallesUsuarioActivity"
+            android:name=".EventosDiaPadresActivity"
             android:exported="false" />
         <activity
-            android:name=".ListaEventosActivity"
+            android:name=".ApuntarseEventoActivity"
             android:exported="false" />
         <activity
-            android:name=".AnadirEventoActivity"
+            android:name=".profesor.EditarUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name=".ListaUsuariosActivity"
+            android:name=".profesor.ListaPadresInscritos"
             android:exported="false" />
         <activity
-            android:name=".AnadirUsuarioActivity"
+            android:name=".profesor.DetallesUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name=".EventosDiaActivity"
+            android:name=".profesor.ListaEventosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profesor.AnadirEventoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profesor.ListaUsuariosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profesor.AnadirUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profesor.EventosDiaActivity"
             android:exported="false" />
         <activity
             android:name=".chat.ConversationActivity"
@@ -49,7 +61,7 @@
             android:name=".CalendarioPadres"
             android:exported="false" />
         <activity
-            android:name=".CalendarioProfesor"
+            android:name=".profesor.CalendarioProfesor"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".profesor.EventosDiaActivity">
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tituloLista"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Eventos de hoy"
         android:textSize="24sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:text="Los Eventos"
+        android:gravity="center"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewEventosDia"
+        android:id="@+id/recyclerViewEventos"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

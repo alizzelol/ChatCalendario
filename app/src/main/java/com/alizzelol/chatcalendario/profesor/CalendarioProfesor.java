@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario;
+package com.alizzelol.chatcalendario.profesor;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.alizzelol.chatcalendario.Evento;
+import com.alizzelol.chatcalendario.R;
 import com.alizzelol.chatcalendario.chat.ChatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
