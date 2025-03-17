@@ -2,13 +2,23 @@ package com.alizzelol.chatcalendario;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,9 +31,13 @@ public class CalendarioProfesor extends AppCompatActivity {
     private GridView calendarGrid;
     private Calendar calendar;
     private List<Date> days;
+    private List<Evento> events;
     private CalendarAdapterPro calendarAdapter;
-    private TextView textMesAño;
-    private String username; // Variable para almacenar el nombre de usuario
+    private FirebaseFirestore db;
+    private String filtro = "todos"; // Filtro inicial
+    private TextView textMesAño; // Adicionado
+    private static final int REQUEST_ADD_EVENT = 1;
+    private String username; // Adicionado
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +49,8 @@ public class CalendarioProfesor extends AppCompatActivity {
 
         calendarGrid = findViewById(R.id.calendarGrid);
         calendar = Calendar.getInstance();
-        textMesAño = findViewById(R.id.textMesAno);
-
+        db = FirebaseFirestore.getInstance();
+        textMesAño = findViewById(R.id.textMesAno); // Inicializado
         ImageButton buttonPrevMonth = findViewById(R.id.buttonPrevMonth);
         ImageButton buttonNextMonth = findViewById(R.id.buttonNextMonth);
         Button btnChat = findViewById(R.id.btnChat); // Obtener el botón Chat
@@ -48,9 +62,16 @@ public class CalendarioProfesor extends AppCompatActivity {
         buttonNextMonth.setOnClickListener(v -> mostrarMesSiguiente());
 
         generateCalendar();
+        loadEvents();
         updateCalendar();
         actualizarTextoMesAño();
 
+        calendarGrid.setOnItemClickListener((parent, view, position, id) -> {
+            Date selectedDate = days.get(position);
+            mostrarEventosDelDia(selectedDate);
+        });
+
+        // Configurar el listener del botón Chat
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +85,7 @@ public class CalendarioProfesor extends AppCompatActivity {
     private void mostrarMesAnterior() {
         calendar.add(Calendar.MONTH, -1);
         generateCalendar();
+        loadEvents();
         updateCalendar();
         actualizarTextoMesAño();
     }
@@ -71,6 +93,7 @@ public class CalendarioProfesor extends AppCompatActivity {
     private void mostrarMesSiguiente() {
         calendar.add(Calendar.MONTH, 1);
         generateCalendar();
+        loadEvents();
         updateCalendar();
         actualizarTextoMesAño();
     }
@@ -78,7 +101,7 @@ public class CalendarioProfesor extends AppCompatActivity {
     private void actualizarTextoMesAño() {
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM фигур", new Locale("es", "ES"));
         String mesAño = sdf.format(calendar.getTime());
-        textMesAño.setText(mesAño.toUpperCase());
+        textMesAño.setText(mesAño.toUpperCase()); // Convertir a mayúsculas
     }
 
     private void generateCalendar() {
@@ -93,8 +116,99 @@ public class CalendarioProfesor extends AppCompatActivity {
         }
     }
 
+    private void loadEvents() {
+        events = new ArrayList<>();
+        db.collection("eventos")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        events.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Evento evento = new Evento(
+                                    document.getId(),
+                                    document.getString("título"),
+                                    document.getString("descripción"),
+                                    document.getDate("fecha"),
+                                    document.getString("hora"),
+                                    document.getString("tipo")
+                            );
+                            events.add(evento);
+                        }
+                        updateCalendar();
+                    } else {
+                        Toast.makeText(this, "Error al cargar eventos.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     private void updateCalendar() {
-        calendarAdapter = new CalendarAdapterPro(this, days, calendar);
+        calendarAdapter = new CalendarAdapterPro(this, days, events, calendar);
         calendarGrid.setAdapter(calendarAdapter);
+    }
+
+    private void mostrarEventosDelDia(Date dataSelecionada) {
+        List<Evento> eventosDoDia = new ArrayList<>();
+        Calendar calDataSelecionada = Calendar.getInstance();
+        calDataSelecionada.setTime(dataSelecionada);
+
+        for (Evento evento : events) {
+            Calendar calEvento = Calendar.getInstance();
+            calEvento.setTime(evento.getFecha());
+
+            if (calDataSelecionada.get(Calendar.YEAR) == calEvento.get(Calendar.YEAR) &&
+                    calDataSelecionada.get(Calendar.MONTH) == calEvento.get(Calendar.MONTH) &&
+                    calDataSelecionada.get(Calendar.DAY_OF_MONTH) == calEvento.get(Calendar.DAY_OF_MONTH)) {
+                eventosDoDia.add(evento);
+            }
+        }
+
+        if (!eventosDoDia.isEmpty()) {
+            Intent intent = new Intent(this, EventosDiaActivity.class);
+            intent.putExtra("eventos", (ArrayList<Evento>) eventosDoDia);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "No hay eventos este día.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_calendario, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_anadir_usuario) {
+            Intent intent = new Intent(this, AnadirUsuarioActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_lista_usuarios) {
+            Intent intent = new Intent(this, ListaUsuariosActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_anadir_evento) {
+            Intent intent = new Intent(this, AnadirEventoActivity.class);
+            startActivityForResult(intent, REQUEST_ADD_EVENT);
+            return true;
+        } else if (id == R.id.action_lista_eventos) {
+            Intent intent = new Intent(this, ListaEventosActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ADD_EVENT) {
+            if (resultCode == RESULT_OK) {
+                loadEvents();
+                updateCalendar();
+            }
+        }
     }
 }
