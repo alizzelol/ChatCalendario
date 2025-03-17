@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -70,6 +67,8 @@ public class AnadirUsuarioActivity extends AppCompatActivity {
                         String userId = UUID.randomUUID().toString();
                         Map<String, Object> userData = new HashMap<>();
                         userData.put("username", username.toLowerCase());
+                        userData.put("nombre", nombre);
+                        userData.put("apellido", apellido);
                         userData.put("email", email);
                         userData.put("userId", userId);
                         userData.put("rol", rol);
