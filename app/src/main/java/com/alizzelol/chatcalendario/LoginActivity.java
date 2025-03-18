@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -54,35 +55,39 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            db.collection("users")
-                                    .whereEqualTo("email", email)
-                                    .get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                                                DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                                                Map<String, Object> userData = document.getData();
-                                                String username = (String) userData.get("username");
-                                                String userId = (String) userData.get("userId");
-                                                String rol = (String) userData.get("rol");
-                                                Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
-                                                Intent intent;
-                                                if ("admin".equals(rol)) {
-                                                    intent = new Intent(LoginActivity.this, CalendarioProfesor.class);
-                                                } else {
-                                                    intent = new Intent(LoginActivity.this, CalendarioPadres.class);
-                                                }
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null) {
+                                String userId = user.getUid(); // Obtener el uid de autenticación
 
-                                                intent.putExtra("username", username);
-                                                intent.putExtra("userId", userId);
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                Toast.makeText(LoginActivity.this, "Error al obtener los datos del usuario.", Toast.LENGTH_SHORT).show();
+                                db.collection("users").document(userId).get() // Usar el uid para buscar el documento
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful() && task.getResult().exists()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    Map<String, Object> userData = document.getData();
+                                                    String username = (String) userData.get("username");
+                                                    String rol = (String) userData.get("rol");
+
+                                                    Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
+
+                                                    Intent intent;
+                                                    if ("admin".equals(rol)) {
+                                                        intent = new Intent(LoginActivity.this, CalendarioProfesor.class);
+                                                    } else {
+                                                        intent = new Intent(LoginActivity.this, CalendarioPadres.class);
+                                                    }
+
+                                                    intent.putExtra("username", username);
+                                                    intent.putExtra("userId", userId); // Pasar el uid
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(LoginActivity.this, "Error al obtener los datos del usuario.", Toast.LENGTH_SHORT).show();
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+                            }
                         } else {
                             Toast.makeText(LoginActivity.this, "Error en el inicio de sesión: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

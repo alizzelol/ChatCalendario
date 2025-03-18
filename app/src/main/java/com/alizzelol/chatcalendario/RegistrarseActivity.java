@@ -12,10 +12,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class RegistrarseActivity extends AppCompatActivity {
 
@@ -50,27 +50,30 @@ public class RegistrarseActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    String userId = UUID.randomUUID().toString();
-                                    Map<String, Object> userData = new HashMap<>();
-                                    userData.put("username", usuario);
-                                    userData.put("email", email);
-                                    userData.put("userId", userId);
-                                    userData.put("rol", rol);
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    if (user != null) {
+                                        String userId = user.getUid(); // Usar el uid de autenticación
+                                        Map<String, Object> userData = new HashMap<>();
+                                        userData.put("username", usuario);
+                                        userData.put("email", email);
+                                        userData.put("userId", userId);
+                                        userData.put("rol", rol);
 
-                                    db.collection("users").document(userId).set(userData)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        Toast.makeText(RegistrarseActivity.this, "Registro exitoso.", Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(RegistrarseActivity.this, MainActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    } else {
-                                                        Toast.makeText(RegistrarseActivity.this, "Error al guardar los datos del usuario.", Toast.LENGTH_SHORT).show();
+                                        db.collection("users").document(userId).set(userData)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(RegistrarseActivity.this, "Registro exitoso.", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(RegistrarseActivity.this, MainActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        } else {
+                                                            Toast.makeText(RegistrarseActivity.this, "Error al guardar los datos del usuario.", Toast.LENGTH_SHORT).show();
+                                                        }
                                                     }
-                                                }
-                                            });
+                                                });
+                                    }
                                 } else {
                                     Toast.makeText(RegistrarseActivity.this, "Error en el registro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }

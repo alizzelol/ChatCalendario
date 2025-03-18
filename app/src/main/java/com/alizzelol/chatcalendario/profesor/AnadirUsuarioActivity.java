@@ -11,10 +11,10 @@ import com.alizzelol.chatcalendario.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class AnadirUsuarioActivity extends AppCompatActivity {
 
@@ -66,28 +66,31 @@ public class AnadirUsuarioActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        String userId = UUID.randomUUID().toString();
-                        Map<String, Object> userData = new HashMap<>();
-                        userData.put("username", username.toLowerCase());
-                        userData.put("nombre", nombre);
-                        userData.put("apellido", apellido);
-                        userData.put("email", email);
-                        userData.put("userId", userId);
-                        userData.put("rol", rol);
-                        userData.put("telefono", telefono);
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            String userId = user.getUid(); // Usar el uid de autenticación
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("username", username.toLowerCase());
+                            userData.put("nombre", nombre);
+                            userData.put("apellido", apellido);
+                            userData.put("email", email);
+                            userData.put("userId", userId);
+                            userData.put("rol", rol);
+                            userData.put("telefono", telefono);
 
-                        db.collection("users").document(userId).set(userData)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(AnadirUsuarioActivity.this, "Usuario añadido con éxito.", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        } else {
-                                            Toast.makeText(AnadirUsuarioActivity.this, "Error al guardar los datos del usuario.", Toast.LENGTH_SHORT).show();
+                            db.collection("users").document(userId).set(userData)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(AnadirUsuarioActivity.this, "Usuario añadido con éxito.", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            } else {
+                                                Toast.makeText(AnadirUsuarioActivity.this, "Error al guardar los datos del usuario.", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                        }
                     } else {
                         Toast.makeText(AnadirUsuarioActivity.this, "Error al crear usuario.", Toast.LENGTH_SHORT).show();
                     }

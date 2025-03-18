@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.alizzelol.chatcalendario.chat.ChatActivity;
-import com.alizzelol.chatcalendario.profesor.DetallesUsuarioActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -184,7 +183,7 @@ public class CalendarioPadres extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-       if (id == R.id.action_ver_cursos) {
+        if (id == R.id.action_ver_cursos) {
             mostrarListaEventosPorTipo("curso");
             return true;
         } else if (id == R.id.action_ver_talleres) {
@@ -198,6 +197,18 @@ public class CalendarioPadres extends AppCompatActivity {
             Intent intent = new Intent(this, MisEventosActivity.class);
             startActivity(intent);
             return true;
+        } else  if (id == R.id.action_perfil) {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                String userId = currentUser.getUid();
+                Intent intent = new Intent(this, PerfilUsuarioActivity.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+                return true;
+            } else {
+                Toast.makeText(this, "Usuario no autenticado.", Toast.LENGTH_SHORT).show();
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
