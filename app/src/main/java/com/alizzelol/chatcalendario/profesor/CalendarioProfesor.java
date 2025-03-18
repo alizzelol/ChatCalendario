@@ -111,7 +111,7 @@ public class CalendarioProfesor extends AppCompatActivity {
     }
 
     private void actualizarTextoMesAño() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM фигур", new Locale("es", "ES"));
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("es", "ES"));
         String mesAño = sdf.format(calendar.getTime());
         textMesAño.setText(mesAño.toUpperCase()); // Convertir a mayúsculas
     }

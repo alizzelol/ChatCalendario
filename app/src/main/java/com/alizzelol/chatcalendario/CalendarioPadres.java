@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.alizzelol.chatcalendario.chat.ChatActivity;
+import com.alizzelol.chatcalendario.profesor.DetallesUsuarioActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.text.SimpleDateFormat;
@@ -127,7 +130,7 @@ public class CalendarioPadres extends AppCompatActivity {
                             Evento evento = new Evento(
                                     document.getId(),
                                     document.getString("título"),
-                                    document.getString("descrição"),
+                                    document.getString("descripcion"),
                                     document.getDate("fecha"),
                                     document.getString("hora"),
                                     document.getString("tipo")
@@ -181,7 +184,7 @@ public class CalendarioPadres extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_ver_cursos) {
+       if (id == R.id.action_ver_cursos) {
             mostrarListaEventosPorTipo("curso");
             return true;
         } else if (id == R.id.action_ver_talleres) {
