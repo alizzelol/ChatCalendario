@@ -4,10 +4,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import com.alizzelol.chatcalendario.R;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.alizzelol.chatcalendario.R;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -93,6 +92,7 @@ public class EditarUsuarioActivity extends AppCompatActivity {
                     .update(usuarioActualizado)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(this, "Usuario actualizado con éxito.", Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_OK); // Establecer el resultado
                         finish();
                     })
                     .addOnFailureListener(e -> {

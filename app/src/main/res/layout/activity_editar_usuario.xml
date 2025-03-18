@@ -17,30 +17,36 @@
         android:id="@+id/editTextNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:hint="Nombre" />
 
     <EditText
         android:id="@+id/editTextApellido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:hint="Apellido" />
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:hint="Email" />
 
     <EditText
         android:id="@+id/editTextTelefono"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:autofillHints="phone"
         android:hint="Teléfono" />
 
     <EditText
         android:id="@+id/editTextRol"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:hint="Rol" />
 
     <Button

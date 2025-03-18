@@ -3,14 +3,16 @@ package com.alizzelol.chatcalendario.profesor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.alizzelol.chatcalendario.R;
 import com.alizzelol.chatcalendario.chat.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,14 +54,24 @@ public class ListaUsuariosActivity extends AppCompatActivity {
                         }
 
                         listaUsuariosAdapter = new ListaUsuariosAdapter(listaUsuarios, userId -> {
-                            Intent intent = new Intent(ListaUsuariosActivity.this, DetallesUsuarioActivity.class);
+                            // Cambiado para iniciar EditarUsuarioActivity con startActivityForResult
+                            Intent intent = new Intent(ListaUsuariosActivity.this, EditarUsuarioActivity.class);
                             intent.putExtra("userId", userId);
-                            startActivity(intent);
+                            startActivityForResult(intent, 1); // 1 es un código de solicitud arbitrario
                         });
                         recyclerViewUsuarios.setAdapter(listaUsuariosAdapter);
                     } else {
                         Toast.makeText(this, "Error al cargar usuarios.", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            // Recargar la lista de usuarios desde Firebase Firestore
+            cargarUsuarios();
+        }
     }
 }
