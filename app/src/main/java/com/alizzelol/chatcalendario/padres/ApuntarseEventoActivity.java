@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario;
+package com.alizzelol.chatcalendario.padres;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +7,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.alizzelol.chatcalendario.profesor.Evento;
+import com.alizzelol.chatcalendario.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;

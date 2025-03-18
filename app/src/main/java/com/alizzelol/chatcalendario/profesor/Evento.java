@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario;
+package com.alizzelol.chatcalendario.profesor;
 
 import java.io.Serializable;
 import java.util.Date;

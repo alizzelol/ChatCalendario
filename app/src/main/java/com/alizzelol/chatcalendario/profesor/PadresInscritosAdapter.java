@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario;
+package com.alizzelol.chatcalendario.profesor;
 
 import android.view.LayoutInflater;
 import android.view.View;

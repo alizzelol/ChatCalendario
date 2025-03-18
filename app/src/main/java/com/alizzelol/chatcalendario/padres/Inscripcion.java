@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario;
+package com.alizzelol.chatcalendario.padres;
 
 public class Inscripcion {
     private String padreId;

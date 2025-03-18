@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario;
+package com.alizzelol.chatcalendario.padres;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.alizzelol.chatcalendario.profesor.Evento;
+import com.alizzelol.chatcalendario.R;
 import com.alizzelol.chatcalendario.chat.ChatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

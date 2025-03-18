@@ -18,19 +18,19 @@
             android:name=".RegistrarseActivity"
             android:exported="false" />
         <activity
-            android:name=".PerfilUsuarioActivity"
+            android:name=".padres.PerfilUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name=".ListaEventosPorTipos"
+            android:name=".padres.ListaEventosPorTipos"
             android:exported="false" />
         <activity
-            android:name=".MisEventosActivity"
+            android:name=".padres.MisEventosActivity"
             android:exported="false" />
         <activity
-            android:name=".EventosDiaPadresActivity"
+            android:name=".padres.EventosDiaPadresActivity"
             android:exported="false" />
         <activity
-            android:name=".ApuntarseEventoActivity"
+            android:name=".padres.ApuntarseEventoActivity"
             android:exported="false" />
         <activity
             android:name=".profesor.EditarUsuarioActivity"
@@ -66,7 +66,7 @@
             android:name=".chat.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".CalendarioPadres"
+            android:name=".padres.CalendarioPadres"
             android:exported="false" />
         <activity
             android:name=".profesor.CalendarioProfesor"

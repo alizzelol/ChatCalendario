@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alizzelol.chatcalendario.Evento;
 import com.alizzelol.chatcalendario.R;
 
 import java.text.SimpleDateFormat;

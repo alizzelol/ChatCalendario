@@ -1,4 +1,4 @@
-package com.alizzelol.chatcalendario;
+package com.alizzelol.chatcalendario.padres;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alizzelol.chatcalendario.R;
+import com.alizzelol.chatcalendario.profesor.Evento;
+
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
