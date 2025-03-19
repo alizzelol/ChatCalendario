@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context="com.alizzelol.ChatCalendario.MainActivity">
 
     <Button
         android:id="@+id/btnLogin"
