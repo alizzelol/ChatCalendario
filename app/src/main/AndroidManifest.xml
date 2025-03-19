@@ -18,58 +18,58 @@
             android:name="com.alizzelol.ChatCalendario.RegistrarseActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.padres.PerfilUsuarioActivity"
+            android:name="com.alizzelol.ChatCalendario.PerfilUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.padres.ListaEventosPorTipos"
+            android:name="com.alizzelol.ChatCalendario.ListaEventosPorTipos"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.padres.MisEventosActivity"
+            android:name="com.alizzelol.ChatCalendario.MisEventosActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.padres.EventosDiaPadresActivity"
+            android:name="com.alizzelol.ChatCalendario.EventosDiaPadresActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.padres.ApuntarseEventoActivity"
+            android:name="com.alizzelol.ChatCalendario.ApuntarseEventoActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.profesor.EditarUsuarioActivity"
+            android:name="com.alizzelol.ChatCalendario.EditarUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.profesor.ListaPadresInscritos"
+            android:name="com.alizzelol.ChatCalendario.ListaPadresInscritos"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.profesor.DetallesUsuarioActivity"
+            android:name="com.alizzelol.ChatCalendario.DetallesUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.profesor.ListaEventosActivity"
+            android:name="com.alizzelol.ChatCalendario.ListaEventosActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.profesor.AnadirEventoActivity"
+            android:name="com.alizzelol.ChatCalendario.AnadirEventoActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.profesor.ListaUsuariosActivity"
+            android:name="com.alizzelol.ChatCalendario.ListaUsuariosActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.profesor.AnadirUsuarioActivity"
+            android:name="com.alizzelol.ChatCalendario.AnadirUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.profesor.EventosDiaActivity"
+            android:name="com.alizzelol.ChatCalendario.EventosDiaActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.chat.ConversationActivity"
+            android:name="com.alizzelol.ChatCalendario.ConversationActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.chat.ContactListActivity"
+            android:name="com.alizzelol.ChatCalendario.ContactListActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.chat.ChatActivity"
+            android:name="com.alizzelol.ChatCalendario.ChatActivity"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.padres.CalendarioPadres"
+            android:name="com.alizzelol.ChatCalendario.CalendarioPadres"
             android:exported="false" />
         <activity
-            android:name="com.alizzelol.ChatCalendario.profesor.CalendarioProfesor"
+            android:name="com.alizzelol.ChatCalendario.CalendarioProfesor"
             android:exported="false" />
         <activity
             android:name="com.alizzelol.ChatCalendario.LoginActivity"

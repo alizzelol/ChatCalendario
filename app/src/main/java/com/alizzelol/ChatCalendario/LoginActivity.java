@@ -9,8 +9,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.alizzelol.ChatCalendario.padres.CalendarioPadres;
-import com.alizzelol.ChatCalendario.profesor.CalendarioProfesor;
 import com.alizzelol.chatcalendario.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
